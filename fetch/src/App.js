@@ -8,8 +8,10 @@ class App extends React.Component {
     super()
     this.state = {
       isLoading: false,
-      person: {}
+      person: {},
+      text: ''
     }
+    this.handleClick = this.handleClick.bind(this)
   }
 
   componentDidMount() {
@@ -26,19 +28,25 @@ class App extends React.Component {
       })
   }
 
+  handleClick() {
+    const textToDisplay = this.state.isLoading ? "Loading.." : this.state.person.name
+    this.setState({
+      text: textToDisplay
+    })
+    return this.state.text
+  }
+
 
   render() {
-    const text = this.state.isLoading ? "Loading.." : this.state.person.name
     return (
       <div className="App">
         <header className="App-header">
           <img src={logo} className="App-logo" alt="logo" />
           <div>
             <p>Get you favourite Star Wars character!</p>
-            <button className="button">Generate</button>
+            <button className="button" onClick={this.handleClick}>Generate</button>
           </div>
-          <p>{text}</p>
-
+          <p>{this.state.text}</p>
         </header>
       </div>
     );
